@@ -1,2 +1,5 @@
-# sp_test
-simple web project showing spring security functionality
+# Функционал приложения #
+---
+1. Регистрация новых пользователей
+    > форма для регистрации представлена ниже
+
