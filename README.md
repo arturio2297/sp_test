@@ -32,8 +32,16 @@ address.validate();
 После заполнения формы и нажатия на кнопку (в случае если введенные пароль и почта валидны) на указанную при регистрации почту будет отправлено сообщение, содержащее html шаблон с ссылкой для подтверждения регистрации. Также в базу данных вносятся: новый пользователь и новый объект класса TokenEntity (у которого поле "token" является кодом для подтверждения регистрации).
 
 ```sh
+///
 private final String CONFIRM_LINK = "http://localhost:8080/register/confirm/token=";
 String token = UUID.randomUUID().toString();
+///
+@GetMapping("/register/confirm/token={id}")
+    public String confirmToken(@PathVariable(value = "id") String id) {
+        registrationService.confirmToken(id);
+        return "redirect:/login";
+    }
+///
 ````
 
 Связь между таблицами "UserEntity" и "TokenEntity" Many-To-One (т.е. один пользователей - много токенов). На основании такой связи в дальнейшем можно добавить возможность пользователям менять свой пароль (для подстверждения смены пароля создавать еще один токен и отправлять соответствующее письмо). 
